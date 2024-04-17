@@ -27,10 +27,9 @@ const GroupComponent = ({
 
   return (
     <div
-      className="w-[61.144rem] rounded-sm bg-royalblue-500 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.1)] flex flex-row items-start justify-between py-[0.875rem] pr-[1.875rem] pl-[1.819rem] box-border gap-[1.25rem] text-left text-[1.125rem] text-darkslategray-200 font-heading-heading-4"
+      className="w-full rounded-sm bg-royalblue-500 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.1)] flex flex-row items-start justify-between py-[0.875rem] pr-[1.875rem] pl-[1.819rem] box-border gap-[1.25rem] text-left text-[1.125rem] text-darkslategray-200 font-heading-heading-4"
       style={groupDivStyle}
     >
-      <div className="h-[5rem] w-[61.144rem] relative rounded-sm bg-royalblue-500 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.1)] hidden max-w-full" />
       <div
         className="flex flex-row items-start justify-start py-[0rem] pr-[2.831rem] pl-[0rem] gap-[1.75rem]"
         style={frameDivStyle}
