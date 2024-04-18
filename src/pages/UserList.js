@@ -1,9 +1,35 @@
+import React, { useState, useEffect } from 'react';
 import FrameComponent from "../components/Navbar";
 import Sidbar from "../components/Sidbar";
 import GroupComponent from "../components/GroupComponent";
 import Navbar from "../components/Navbar";
 
+
 const UserList = () => {
+  const [users, setUsers] = useState([]);
+
+  console.log(users);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://z462sxm6-8000.inc1.devtunnels.ms/api/getAllProfiles', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // Add any other headers if required
+          },
+          // Add any request body if required
+        });
+        const data = await response.json();
+        setUsers(data.users); // Assuming data is an array of user objects
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <section className=" w-full flex-1 flex flex-col items-start justify-start pt-[0.25rem] px-[0rem] pb-[0rem] box-border max-w-[calc(100%_-_326px)] text-left text-[1.5rem] text-gray-400 font-heading-heading-4 mq900:max-w-full">
       <div className=" w-full self-stretch flex flex-col items-start justify-start gap-[0.438rem] max-w-full">
@@ -32,52 +58,50 @@ const UserList = () => {
             </div>
           </div>
           <div className="w-full flex flex-col items-start justify-start gap-[1.375rem] max-w-full z-[2]">
-            <GroupComponent
-              ellipse6="/ellipse-6@2x.png"
-              group4="/group-4@2x.png"
-            />
-            <GroupComponent
-              ellipse6="/ellipse-7@2x.png"
-              group4="/group-4-1@2x.png"
-              propPadding="0.875rem 1.938rem 0.875rem 1.756rem"
-              propPadding1="0rem 3.331rem 0rem 0rem"
-              propWidth="14.813rem"
-            />
-            <GroupComponent
-              ellipse6="/ellipse-8@2x.png"
-              group4="/group-4-1@2x.png"
-              propPadding="0.875rem 1.938rem 0.875rem 1.756rem"
-              propPadding1="0rem 2.831rem 0rem 0rem"
-              propWidth="15.313rem"
-            />
-            <GroupComponent
-              ellipse6="/ellipse-8@2x.png"
-              group4="/group-4-1@2x.png"
-              propPadding="0.875rem 1.938rem 0.875rem 1.756rem"
-              propPadding1="0rem 2.831rem 0rem 0rem"
-              propWidth="15.313rem"
-            />
-            <GroupComponent
-              ellipse6="/ellipse-7@2x.png"
-              group4="/group-4-1@2x.png"
-              propPadding="0.875rem 1.938rem 0.875rem 1.756rem"
-              propPadding1="0rem 3.331rem 0rem 0rem"
-              propWidth="14.813rem"
-            />
-            <GroupComponent
-              ellipse6="/ellipse-6@2x.png"
-              group4="/group-4@2x.png"
-              propPadding="0.875rem 1.875rem 0.875rem 1.819rem"
-              propPadding1="0rem 2.831rem 0rem 0rem"
-              propWidth="15.313rem"
-            />
-            <GroupComponent
-              ellipse6="/ellipse-7@2x.png"
-              group4="/group-4-1@2x.png"
-              propPadding="0.875rem 1.938rem 0.875rem 1.756rem"
-              propPadding1="0rem 3.331rem 0rem 0rem"
-              propWidth="14.813rem"
-            />
+            {users.map(user => (
+              <div
+                className="w-full rounded-sm bg-royalblue-500 shadow-[0px_0px_10px_rgba(0,_0,_0,_0.1)] flex flex-row items-start justify-between py-[0.875rem] pr-[1.875rem] pl-[1.819rem] box-border gap-[1.25rem] text-left text-[1.125rem] text-darkslategray-200 font-heading-heading-4"
+              // style={groupDivStyle}
+              >
+                <div
+                  className="flex flex-row items-start justify-start py-[0rem] pr-[2.831rem] pl-[0rem] gap-[1.75rem]"
+                // style={frameDivStyle}
+                >
+                  <img
+                    className="h-[3.25rem] w-[3.144rem] relative rounded-[50%] object-cover z-[1]"
+                    loading="lazy"
+                    alt=""
+                  src={user.profilePhoto}
+                  />
+                  <div className="flex flex-col items-start justify-start pt-[1.063rem] px-[0rem] pb-[0rem]">
+                    <div className="relative leading-[1.125rem] capitalize font-semibold inline-block min-w-[6.5rem] z-[1]">
+                      {user.fullName}
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="w-[15.313rem] flex flex-col items-start justify-start pt-[1.063rem] pb-[0rem] pr-[1.25rem] pl-[0rem] box-border"
+                // style={frameDiv1Style}
+                >
+                  <div className="relative leading-[1.125rem] capitalize whitespace-nowrap z-[1]">
+                   {user.email}
+                  </div>
+                </div>
+                <div className="flex flex-col items-start justify-start pt-[1.063rem] px-[0rem] pb-[0rem]">
+                  <div className="relative leading-[1.125rem] capitalize z-[1]">
+               {user.friend }
+                  </div>
+                </div>
+                <div className="flex flex-col items-start justify-start pt-[0.813rem] px-[0rem] pb-[0rem]">
+                  <img
+                    className="w-[0.375rem] h-[1.625rem] relative object-contain z-[1]"
+                    loading="lazy"
+                    alt=""
+                  // src={group4}
+                  />
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
