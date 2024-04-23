@@ -1,14 +1,25 @@
+import React, { useEffect, useState } from "react";
 import FrameComponent from "../components/Navbar";
 import GroupComponent4 from "../components/GroupComponent4";
 import Followers from "../components/Followers";
+import { useLocation } from "react-router-dom";
+// import Avatar from "@mui/material/Avatar";
+// import Stack from "@mui/material/Stack";
+
 
 const DataAnalysis = () => {
+  const location = useLocation();
+  const profileData = location.state.profile;
+
+  console.log(profileData.profile.friends.length,"profileeee");
+  const [mediaData, setMediaData] = useState(null);
+
   return (
 
         <section className="flex-1 flex flex-col items-start justify-start pt-[2.375rem] px-[0rem] pb-[0rem] box-border max-w-[calc(100%_-_326px)] text-left text-[1.5rem] text-gray-400 font-heading-heading-4 mq900:max-w-full">
           <div className="self-stretch flex flex-col items-start justify-start gap-[2.375rem] max-w-full mq700:gap-[1.188rem]">
             <h1 className="m-0 relative text-inherit font-semibold font-inherit mq450:text-[1.188rem]">
-              Dashboard Overview
+            User Profile
             </h1>
             <div className="self-stretch flex flex-row flex-wrap items-start justify-center gap-[0.75rem] max-w-full text-[1.25rem]">
               <div className="flex-1 rounded-mini bg-background-2 box-border flex flex-row items-end justify-start py-[0.875rem] px-[1rem] gap-[1.5rem] min-w-[14.125rem] max-w-full border-[1px] border-solid border-aliceblue-100 mq450:flex-wrap">
@@ -16,20 +27,20 @@ const DataAnalysis = () => {
                   className="h-[6rem] w-[6rem] relative rounded-101xl object-contain"
                   loading="lazy"
                   alt=""
-                  src="/image1@2x.png"
+                  src={profileData.profile.profilePhoto}
                 />
                 <div className="flex flex-col items-start justify-end pt-[0rem] px-[0rem] pb-[0.125rem]">
                   <div className="flex flex-col items-start justify-start gap-[0.938rem]">
                     <div className="flex flex-col items-start justify-start gap-[0.375rem]">
                       <h2 className="m-0 relative text-inherit leading-[1.5rem] font-semibold font-inherit mq450:text-[1rem] mq450:leading-[1.188rem]">
-                        Roberto Carlos
+                      {profileData.profile.fullName}
                       </h2>
                       <div className="relative text-[0.875rem] text-lightslategray-100 inline-block min-w-[7.375rem]">
-                        @robertocarlos13
+                      {profileData.profile.email}
                       </div>
                     </div>
                     <div className="relative text-[0.875rem] font-semibold text-royalblue-200">
-                      https://Robert25.com
+                    {profileData.profile.email}
                     </div>
                   </div>
                 </div>
@@ -37,7 +48,7 @@ const DataAnalysis = () => {
               <Followers
                 group514939="/group-514939.svg"
                 followers="Followers"
-                prop="245.678"
+                prop={profileData.profile.friends.length}
                 icon="/icon.svg"
                 prop1="10,2% "
               />

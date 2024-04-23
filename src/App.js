@@ -8,6 +8,7 @@ import {
 import UserList from "./pages/UserList";
 import Login from "./pages/Login";
 import Setting from "./pages/Setting";
+import Notification from "./pages/Notificaion";
 import DataAnalysis from "./pages/DataAnalysis";
 import DataAnalysis1 from "./pages/DataAnalysis1";
 import Navbar from "./components/Navbar";
@@ -83,6 +84,7 @@ function App() {
           <Route path="/userList" element={<UserList />} />
           <Route path="/login" element={<Login />} />
           <Route path="/setting" element={<Setting />} />
+          <Route path="/notification" element={<Notification />} />
           <Route path="/userProfile" element={<DataAnalysis />} />
           <Route path="/" element={<DataAnalysis1 />} />
         </Routes>

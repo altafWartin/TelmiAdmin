@@ -63,22 +63,25 @@ const Sidbar = () => {
               </div>
             </div>
           </div>
-        </Link>    <Link
-          to="/userProfile"
-          onClick={() => handleLinkClick("/userProfile")}
-          className={`self-stretch  no-underline rounded-3xs  flex flex-row items-start justify-end  ${isLinkActive("/userProfile")
+        </Link>
+     
+        <Link
+          to="/notification"
+          onClick={() => handleLinkClick("/notification")}
+          className={`self-stretch no-underline rounded-3xs  flex flex-row items-start justify-end py-[0rem] pr-[0.188rem] pl-[0rem] ${isLinkActive("/notification")
             ? "[background:linear-gradient(90deg,_#3d8de3,_rgba(61,_141,_227,_0.43))] active  pl-5  text-white"
             : "text-black"
             }`} >
           <div className="flex-1  flex flex-row items-start justify-start py-[0.813rem] pr-[0.625rem] pl-[0.938rem] gap-[1rem] z-[1]">
             <img
-              className="h-[1.25rem] w-[1.125rem] relative min-h-[1.25rem] z-[1]"
+              className="h-[1.125rem] w-[1.25rem] relative min-h-[1.125rem] z-[1]"
+              loading="lazy"
               alt=""
-              src="/vector-4.svg"
+              src="/group-2.svg"
             />
             <div className="flex-1 flex flex-col items-start justify-start pt-[0.125rem] px-[0rem] pb-[0rem]">
               <div className="self-stretch relative leading-[1.125rem] z-[2]">
-                User Profile
+                Notification
               </div>
             </div>
           </div>
