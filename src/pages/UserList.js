@@ -16,6 +16,8 @@ const UserList = () => {
   const [userId, setUserId] = useState("");
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [shouldFetchData, setShouldFetchData] = useState(true); // State to track when to fetch data
+
 
   const [profiles, setProfiles] = useState([]);
   const navigate = useNavigate(); // Initializing the useNavigate hook
@@ -34,30 +36,65 @@ const UserList = () => {
   const [showModal, setShowModal] = React.useState(false);
 
 
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://3.15.166.99:8000/api/getAllProfiles', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            // Add any other headers if required
-          },
-          // Add any request body if required
-        });
-        const data = await response.json();
-        setUsers(data.users); // Assuming data is an array of user objects
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      } finally {
-        setLoading(false); // Set loading to false when data is fetched or error occurs
+    if (shouldFetchData) {
+      const fetchData = async () => {
+        try {
+          const response = await fetch('http://3.15.166.99:8000/api/getAllProfiles', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+          const data = await response.json();
+          setUsers(data.users);
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        } finally {
+          setLoading(false);
+          setShouldFetchData(false); // Reset shouldFetchData after fetching data
+        }
+      };
+
+      fetchData();
+    }
+  }, [shouldFetchData]); // Run the effect only when shouldFetchData changes
+
+  const deleteUserProfile = async (userId) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        throw new Error("Access token not found in local storage");
       }
-    };
+  
+      const response = await fetch("http://3.15.166.99:8000/api/deleteUser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `${accessToken}`,
+        },
+        body: JSON.stringify({ userId }), // Make sure userId is sent correctly
+      });
+  
+      const data = await response.json();
+      if (response.ok) {
+        setMessage(data.message);
+        notify();
+        setErrorMessage("");
+        setShouldFetchData(true); // Trigger data fetching after successful deletion
 
-    fetchData();
-  }, [users]);
-
-
+        fetchData(); // Fetch updated user list after deletion
+      } else {
+        setMessage("");
+        setErrorMessage(data.message || "An error occurred");
+      }
+    } catch (error) {
+      setMessage("");
+      setErrorMessage("Network error occurred");
+    }
+  };
+  
 
   const fetchSingleProfile = async (userId) => {
     try {
@@ -89,44 +126,7 @@ const UserList = () => {
     }
   };
 
-
-  const deleteUserProfile = async (userId) => {
-    try {
-      const accessToken = localStorage.getItem("accessToken");   
-      console.log(access);
-      if (!accessToken) {
-        throw new Error("Access token not found in local storage");
-      }
-      console.log("userId", userId);
-      const response = await fetch(     
-        "http://3.15.166.99:8000/api/deleteUser",
-        {
-          method: "POST", 
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `${accessToken}`,
-          },
-          body: JSON.stringify({ userId }),
-        }
-      );
-
-      const data = await response.json();
-      if (response.ok) {
-        setMessage(data.message);
-        notify();
-        setErrorMessage("");
-
-        fetchData(); // Fetch updated user list after deletion
-      } else {
-        setMessage("");
-        setErrorMessage(data.message || "An error occurred");
-      }
-    } catch (error) {
-      setMessage("");
-      setErrorMessage("Network error occurred");
-    }
-  };
-
+ 
 
   const blockUserProfile = async (userId) => {
     try {
@@ -149,6 +149,7 @@ const UserList = () => {
         setMessage(data.message);
         block();
         setErrorMessage("");
+        setShouldFetchData(true); // Trigger data fetching after successful deletion
 
         fetchData(); // Fetch updated user list after deletion
       } else {
