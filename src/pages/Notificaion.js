@@ -34,7 +34,7 @@ const Notifications = () => {
     const fetchUsers = async () => {
       try {
         const response = await fetch(
-          "https://devv.legacyx.uk/api/auth/allProfile"
+          "http://3.15.166.99:8000/api/getAllProfiles"
         );
         if (!response.ok) {
           throw new Error("Failed to fetch users");
