@@ -3,6 +3,9 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import "primereact/resources/themes/saga-blue/theme.css"; // Choose your theme
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css"; // PrimeIcons
 import "./global.css";
 
 const container = document.getElementById("root");

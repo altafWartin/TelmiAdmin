@@ -14,3 +14,47 @@ body {
 ::after {
   border-width: 0;
 }
+
+
+/* Custom scrollbar for the horizontal and vertical scrollbars */
+.overflow-x-auto::-webkit-scrollbar {
+  width: 8px; /* Set the width for the vertical scrollbar */
+  height: 8px; /* Set the height for the horizontal scrollbar */
+}
+
+/* Custom scrollbar track (background) */
+.overflow-x-auto::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Light background */
+}
+
+/* Custom scrollbar thumb (the draggable part) */
+.overflow-x-auto::-webkit-scrollbar-thumb {
+  background-color: #86B3F3; /* Your custom color for the scrollbar thumb */
+  border-radius: 10px;
+}
+
+/* Hover effect for the scrollbar thumb */
+.overflow-x-auto::-webkit-scrollbar-thumb:hover {
+  background-color: #5a8ccf; /* Darker shade when hovered */
+}
+
+/* Custom vertical scrollbar */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 8px; /* Set the width of the vertical scrollbar */
+}
+
+/* Custom scrollbar track (background) for vertical scrollbar */
+.overflow-y-auto::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Light background */
+}
+
+/* Custom scrollbar thumb for vertical scrollbar */
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background-color: #86B3F3; /* Your custom color for the scrollbar thumb */
+  border-radius: 10px;
+}
+
+/* Hover effect for the scrollbar thumb (vertical) */
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background-color: #5a8ccf; /* Darker shade when hovered */
+}

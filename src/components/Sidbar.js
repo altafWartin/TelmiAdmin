@@ -1,130 +1,124 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-
-import userList from "../Assets/Icons/Group 514964.svg"
+import React from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom"; // Import useNavigate
+import { ReactComponent as DataIcon } from "../Assets/Icons/Vector.svg";
+import { ReactComponent as SettingIcon } from "../Assets/Icons/settingicon.svg";
+import userList from "../Assets/Icons/Group 514964.svg";
 
 const Sidbar = () => {
   const location = useLocation();
-  const [activeLink, setActiveLink] = useState(location.pathname);
+  const navigate = useNavigate(); // Initialize useNavigate
 
-  const handleLinkClick = (path) => {
-    setActiveLink(path);
+  // Logout handler
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Clear the token or any other relevant data
+    navigate("/"); // Navigate to the home screen
   };
 
-  const isLinkActive = (path) => {
-    return path === activeLink;
-  };
   return (
-    <div className="w-[17.875rem] gap-[9.625rem] h-[900px] d-flex content-between justify-between rounded-xl bg-background-2 shadow-[0px_4px_50px_rgba(34,_125,_255,_0.1)] flex flex-col items-start pt-[2.625rem] pb-[36.75rem] pr-[1rem] pl-[1.188rem] box-border text-left text-[1.125rem] text-darkslategray-200 font-heading-heading-4 mq900:hidden mq900:pt-[1.688rem] mq900:pb-[23.875rem] mq900:box-border mq450:gap-[1.25rem] mq450:pt-[1.25rem] mq450:pb-[15.5rem] mq450:box-border">
+    <div className="h-[75vh] sticky d-flex flex-col justify-between rounded-xl bg-background-2 shadow-[0px_4px_50px_rgba(34,_125,_255,_0.1)] p-4 box-border text-left text-[1.rem] text-darkslategray-200 font-heading-heading-4 ">
       <div className="self-stretch flex flex-col items-start justify-start ">
-        <Link
+        {/* Data Analysis Link */}
+        <NavLink
           to="/"
-          onClick={() => handleLinkClick("/")}
-          className={`self-stretch mb-3 no-underline rounded-3xs  flex flex-row items-start justify-end  ${isLinkActive("/")
-            ? "[background:linear-gradient(90deg,_#3d8de3,_rgba(61,_141,_227,_0.43))] active  pl-5  text-white"
-            : "text-black"
-            }`} >
-          <div className="flex-1  flex flex-row items-start justify-start py-[0.813rem] pr-[0.625rem] pl-[0.938rem] gap-[1rem] z-[1]">
-            <img
-              className="h-[1.313rem] w-[1.5rem] relative text-white min-h-[1.313rem] z-[1]"
-              alt=""
-              src="/vector-3.svg"
-            />
+          className={({ isActive }) =>
+            `self-stretch mb-2 no-underline rounded-3xs flex flex-row items-start justify-end ${
+              isActive
+                ? "[background:linear-gradient(90deg,_#3d8de3,_rgba(61,_141,_227,_0.43))] active text-white"
+                : "text-black"
+            }`
+          }
+        >
+          <div className="flex-1 flex flex-row items-start justify-start py-[0.813rem]  px-[1.538rem] gap-[1rem] z-[1]">
+            <DataIcon className="w-5 h-5 fill-current " />
             <div className="flex-1 flex flex-col items-start justify-start pt-[0.125rem] px-[0rem] pb-[0rem]">
-              <div className="self-stretch relative leading-[1.125rem] z-[2]">
+              <div className="self-stretch w-32 relative leading-[1.125rem] z-[2]">
                 Data Analysis
               </div>
             </div>
           </div>
-        </Link>
+        </NavLink>
 
-
-        <Link
+        {/* User List Link */}
+        <NavLink
           to="/userList"
-          onClick={() => handleLinkClick("/userList")}
-          className={`self-stretch no-underline rounded-3xs  flex flex-row items-start justify-end py-[0rem] pr-[0.188rem] pl-[0rem] ${isLinkActive("/userList")
-            ? "[background:linear-gradient(90deg,_#3d8de3,_rgba(61,_141,_227,_0.43))] active  pl-5  text-white"
-            : "text-black"
-            }`} >
-          <div className="flex-1  flex flex-row items-start justify-start py-[0.813rem] pr-[0.625rem] pl-[0.938rem] gap-[1rem] z-[1]">
-            {isLinkActive("/userList") ? <img
-              className="h-[1.375rem] w-[1.25rem] relative z-[2]"
-              alt=""
-              src="/group-514964.svg"
-            /> : <img
-              className="h-[1.375rem] w-[1.25rem] relative z-[2]"
-              alt=""
-              src={userList}
-            />}
-
+          className={({ isActive }) =>
+            `self-stretch no-underline rounded-3xs flex flex-row items-start justify-end py-[0rem] pr-[0.188rem] pl-[0rem] ${
+              isActive
+                ? "[background:linear-gradient(90deg,_#3d8de3,_rgba(61,_141,_227,_0.43))] active pl-5 text-white"
+                : "text-black"
+            }`
+          }
+        >
+          <div className="flex-1 flex flex-row items-start justify-start py-[0.813rem] px-[1.538rem] gap-[1rem] z-[1]">
+            <i className="bi bi-people"></i>
             <div className="flex-1 flex flex-col items-start justify-start pt-[0.125rem] px-[0rem] pb-[0rem]">
               <div className="self-stretch relative leading-[1.125rem] z-[2]">
-                User list
+                User List
               </div>
             </div>
           </div>
-        </Link>
-     
-        <Link
+        </NavLink>
+
+        {/* Notification Link */}
+        <NavLink
           to="/notification"
-          onClick={() => handleLinkClick("/notification")}
-          className={`self-stretch no-underline rounded-3xs  flex flex-row items-start justify-end py-[0rem] pr-[0.188rem] pl-[0rem] ${isLinkActive("/notification")
-            ? "[background:linear-gradient(90deg,_#3d8de3,_rgba(61,_141,_227,_0.43))] active  pl-5  text-white"
-            : "text-black"
-            }`} >
-          <div className="flex-1  flex flex-row items-start justify-start py-[0.813rem] pr-[0.625rem] pl-[0.938rem] gap-[1rem] z-[1]">
-            <img
-              className="h-[1.125rem] w-[1.25rem] relative min-h-[1.125rem] z-[1]"
-              loading="lazy"
-              alt=""
-              src="/group-2.svg"
-            />
+          className={({ isActive }) =>
+            `self-stretch no-underline rounded-3xs flex flex-row items-start justify-end py-[0rem] pr-[0.188rem] pl-[0rem] ${
+              isActive
+                ? "[background:linear-gradient(90deg,_#3d8de3,_rgba(61,_141,_227,_0.43))] active pl-5 text-white"
+                : "text-black"
+            }`
+          }
+        >
+          <div className="flex-1 flex flex-row items-start justify-start py-[0.813rem] px-[1.538rem] gap-[1rem] z-[1]">
+            <i className="bi bi-bell"></i>{" "}
             <div className="flex-1 flex flex-col items-start justify-start pt-[0.125rem] px-[0rem] pb-[0rem]">
               <div className="self-stretch relative leading-[1.125rem] z-[2]">
                 Notification
               </div>
             </div>
           </div>
-        </Link>
-        <Link
+        </NavLink>
+
+        {/* Setting Link */}
+        <NavLink
           to="/setting"
-          onClick={() => handleLinkClick("/setting")}
-          className={`self-stretch no-underline rounded-3xs  flex flex-row items-start justify-end py-[0rem] pr-[0.188rem] pl-[0rem] ${isLinkActive("/setting")
-            ? "[background:linear-gradient(90deg,_#3d8de3,_rgba(61,_141,_227,_0.43))] active  pl-5  text-white"
-            : "text-black"
-            }`} >
-          <div className="flex-1  flex flex-row items-start justify-start py-[0.813rem] pr-[0.625rem] pl-[0.938rem] gap-[1rem] z-[1]">
-            <img
-              className="h-[1.125rem] w-[1.25rem] relative min-h-[1.125rem] z-[1]"
-              loading="lazy"
-              alt=""
-              src="/group-2.svg"
-            />
+          className={({ isActive }) =>
+            `self-stretch no-underline rounded-3xs flex flex-row items-start justify-end py-[0rem] pr-[0.188rem] pl-[0rem] ${
+              isActive
+                ? "[background:linear-gradient(90deg,_#3d8de3,_rgba(61,_141,_227,_0.43))] active pl-5 text-white"
+                : "text-black"
+            }`
+          }
+        >
+          <div className="flex-1 flex flex-row items-start justify-start py-[0.813rem] px-[1.538rem] gap-[1rem] z-[1]">
+            <i className="bi bi-sliders"></i>{" "}
             <div className="flex-1 flex flex-col items-start justify-start pt-[0.125rem] px-[0rem] pb-[0rem]">
               <div className="self-stretch relative leading-[1.125rem] z-[2]">
                 Setting
               </div>
             </div>
           </div>
-        </Link>
+        </NavLink>
       </div>
 
-
-      <div className="self-stretch  flex flex-row  py-[0rem] pr-[1.125rem] pl-[0.938rem]">
-        <div className="flex-1 flex flex-row items-start justify-start gap-[0.938rem]">
-          <div className="h-[1.25rem] w-[1.188rem] relative z-[1]">
-            <div className="absolute top-[0rem] left-[0rem] rounded-sm box-border w-[0.75rem] h-[1.25rem] border-[1px] border-solid border-darkslategray-200" />
-            <div className="absolute top-[0.5rem] left-[0.438rem] rounded-sm bg-background-2 w-[0.438rem] h-[0.25rem] z-[1]" />
-            <img
-              className="absolute h-2/5 w-[52.63%] top-[30%] right-[0%] bottom-[30%] left-[47.37%] max-w-full overflow-hidden max-h-full z-[2]"
-              alt=""
-              src="/vector-5.svg"
-            />
-          </div>
-          <div className="flex-1 flex flex-col items-start justify-start pt-[0.063rem] px-[0rem] pb-[0rem]">
-            <div className="self-stretch relative leading-[1.125rem] z-[1]">{`Logout `}</div>
-          </div>
-        </div>
+      {/* Logout Section */}
+      <div className="flex flex-row py-0 px-[1.538rem] items-center gap-3 cursor-pointer" onClick={handleLogout}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1"
+          />
+        </svg>
+        <div className="leading-5 pt-[1px]">{`Logout `}</div>
       </div>
     </div>
   );
